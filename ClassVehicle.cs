@@ -13,14 +13,14 @@ namespace Fleet_Vehicles
         public string Brand { get; set; }
         public string Model { get; set; }
         public double ModelCoef {  get; set; }
-        public uint Year { get; set; }
+        public int Year { get; set; }
         public string Color { get; set; }
         public double Price {  get; set; } 
         public string RegNumber {  get; set; }
         public int Mileage { get; set; }
         public short  ServiceTime { get; set; }
 
-        public Vehicle(uint id, string brand, string model, double modelCoef, uint year, string color, double price, string regNumber, int mileage, short servicetime) {
+        public Vehicle(uint id, string brand, string model, double modelCoef, int year, string color, double price, string regNumber, int mileage, short servicetime) {
             Id = id;
             Brand = brand;
             Model = model;
@@ -31,8 +31,15 @@ namespace Fleet_Vehicles
             RegNumber = regNumber;
             Mileage = mileage;
             ServiceTime = servicetime;
+                    
+        }
 
-        
+        public double GetVehicleValue()
+        {
+            int currentYear = DateTime.Now.Year;
+            double currentPrice = Price - (currentYear - Year)*(7*Price/100); //-7% for each year for default vehicle, default for cargo vehicles
+
+            return (currentPrice > 0 ? currentPrice : 0); ;
         }
     }
 }
