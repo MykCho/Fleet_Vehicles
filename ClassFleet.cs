@@ -34,12 +34,7 @@ namespace Fleet_Vehicles
             string separator = new String('-', Console.WindowWidth); //string of repeating symbols, WindowWidth times
             foreach (var vehicle in Vehicles)
             {
-                //Console.Write($"ID: {vehicle.Id}\tType: {(vehicle is CargoVehicle ? "Cargo" : "Passenger")}");
-                //if (vehicle is CargoVehicle) { Console.WriteLine($"\tCargoWeight: {(vehicle as CargoVehicle).CargoWeight}"); }
-                //if (vehicle is PassengerVehicle) { Console.WriteLine($"\tLesseeRating: {(vehicle as PassengerVehicle).LesseeRating}"); }
-                //Console.WriteLine($"Brand: {vehicle.Brand}\tModel: {vehicle.Model}\tModelCoef: {vehicle.ModelCoef}");
-                //Console.WriteLine($"Year: {vehicle.Year}\tColor: {vehicle.Color}\tRegNumber: {vehicle.RegNumber}");
-                //Console.WriteLine($"Price: {vehicle.Price}\tMileage: {vehicle.Mileage}\tServiceTime: {vehicle.ServiceTime}");
+               
                 if (vehicle is CargoVehicle) { (vehicle as CargoVehicle).PrintInfo(); }
                 if (vehicle is PassengerVehicle) { (vehicle as PassengerVehicle).PrintInfo(); }
 

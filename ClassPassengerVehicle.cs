@@ -16,7 +16,7 @@ namespace Fleet_Vehicles
             LesseeRating = lesseeRating;
         }
 
-        public double GetVehicleValue() //it hides the original method
+        public double GetVehicleValue() //it hides the parent (Vehicle) method
         {
             int currentYear = DateTime.Now.Year;
             double currentPrice = Price - (currentYear - Year) * (10 * Price / 100); //-10% for passenger vehicle
@@ -31,6 +31,11 @@ namespace Fleet_Vehicles
             Console.WriteLine($"Brand: {Brand}\tModel: {Model}\tModelCoef: {ModelCoef}");
             Console.WriteLine($"Year: {Year}\tColor: {Color}\tRegNumber: {RegNumber}");
             Console.WriteLine($"Price: {Price}\tMileage: {Mileage}\tServiceTime: {ServiceTime}");
+        }
+        public double CalculateRentalCost(double ratePerHour, double ratePerKilometer, uint hours, uint kilometers)
+        {
+            return ModelCoef * Math.Max(ratePerHour * hours, ratePerKilometer * kilometers)*Math.Sqrt(LesseeRating);
+            //and similarly in here, using sqrt just because I don't know how should it influence the cost
         }
     }
 }
