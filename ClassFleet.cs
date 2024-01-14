@@ -41,5 +41,26 @@ namespace Fleet_Vehicles
                 Console.WriteLine(separator);
             }
         }
+
+        public double GetFleetValue()
+        {
+            double fleetValue= 0;
+            
+            foreach (var vehicle in Vehicles)
+            {
+                
+                //could have used "else", but potentially there may be more child classes than 2
+                if (vehicle is CargoVehicle) {
+                    fleetValue += (vehicle as CargoVehicle).GetVehicleValue();
+                }
+                
+                if (vehicle is PassengerVehicle)
+                {
+                    fleetValue += (vehicle as PassengerVehicle).GetVehicleValue();
+                }
+            }
+
+            return fleetValue;
+        }
     }
 }

@@ -27,7 +27,7 @@ namespace Fleet_Vehicles
             Console.WriteLine($"\tCargoWeight: {CargoWeight}");
             Console.WriteLine($"Brand: {Brand}\tModel: {Model}\tModelCoef: {ModelCoef}");
             Console.WriteLine($"Year: {Year}\tColor: {Color}\tRegNumber: {RegNumber}");
-            Console.WriteLine($"Price: {Price}\tMileage: {Mileage}\tServiceTime: {ServiceTime}");
+            Console.WriteLine($"Price: ${Price}\tMileage: {Mileage}\tServiceTime: {ServiceTime}");
         }
 
         public double CalculateRentalCost(double ratePerHour, double ratePerKilometer, uint hours, uint kilometers) { 
