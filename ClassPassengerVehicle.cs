@@ -23,5 +23,14 @@ namespace Fleet_Vehicles
 
             return (currentPrice > 0 ? currentPrice : 0);
         }
+
+        public void PrintInfo()
+        {
+            Console.Write($"ID: {Id}\tType: Passenger");
+            Console.WriteLine($"\tLesseeRating: {LesseeRating}");
+            Console.WriteLine($"Brand: {Brand}\tModel: {Model}\tModelCoef: {ModelCoef}");
+            Console.WriteLine($"Year: {Year}\tColor: {Color}\tRegNumber: {RegNumber}");
+            Console.WriteLine($"Price: {Price}\tMileage: {Mileage}\tServiceTime: {ServiceTime}");
+        }
     }
 }

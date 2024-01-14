@@ -17,10 +17,14 @@ namespace Fleet_Vehicles
         }    
        
 
-        //public double GetRentalCost()
-        //{
-
-        //}
+        public void PrintInfo()
+        {
+            Console.Write($"ID: {Id}\tType: Cargo");
+            Console.WriteLine($"\tCargoWeight: {CargoWeight}");
+            Console.WriteLine($"Brand: {Brand}\tModel: {Model}\tModelCoef: {ModelCoef}");
+            Console.WriteLine($"Year: {Year}\tColor: {Color}\tRegNumber: {RegNumber}");
+            Console.WriteLine($"Price: {Price}\tMileage: {Mileage}\tServiceTime: {ServiceTime}");
+        }
 
     }
 }
