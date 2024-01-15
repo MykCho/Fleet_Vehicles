@@ -10,17 +10,22 @@ namespace Fleet_Vehicles
 {
     public class Fleet
     {
+        public static string separator = new String('-', Console.WindowWidth); //string of repeating symbols, WindowWidth times
+
         public List<Vehicle> Vehicles;
         public Fleet() {
             
             Vehicles = new List<Vehicle>();
             //using names for easiness
-            Vehicles.Add(new CargoVehicle(id:1, brand:"Volvo", model:"FH16", modelCoef:1.05, year:2020, color:"black", price:25000, regNumber:"AAAA135", mileage:2000, servicetime:20, cargoweight:150));
-            Vehicles.Add(new PassengerVehicle(id:2, brand:"Toyota", model:"Camry", modelCoef:1.0, year:2012, color:"white", price:16000, regNumber:"BBBB246", mileage:250, servicetime:1100, lesseeRating:100));
-            Vehicles.Add(new CargoVehicle(id:3, brand:"MAC", model:"Super-Liner", modelCoef:1.0, year:2021, color:"red", price:24000, regNumber:"CCCC782", mileage:250, servicetime:3, cargoweight:320));
+            Vehicles.Add(new CargoVehicle(id:1, brand:"Volvo", model:"FH16", modelCoef:1.05, year:2020, color:"black", price:25000, regNumber:"AAAA135", mileage:4500, servicetime:20, cargoweight:150));
+            Vehicles.Add(new PassengerVehicle(id:2, brand:"Toyota", model:"Camry", modelCoef:1.5, year:2012, color:"white", price:16000, regNumber:"BBBB246", mileage:250, servicetime:10, lesseeRating:100));
+            Vehicles.Add(new CargoVehicle(id:3, brand:"MAC", model:"Super-Liner", modelCoef:1.0, year:2021, color:"red", price:24000, regNumber:"CCCC782", mileage:14100, servicetime:3, cargoweight:320));
             Vehicles.Add(new PassengerVehicle(id:4, brand:"MiniCooper", model:"Countryman", modelCoef:1.0, year:2022, color:"beige", price:30100, regNumber:"DDDD197", mileage:500, servicetime:3, lesseeRating:10));
-            Vehicles.Add(new CargoVehicle(id:5, brand:"Volvo", model:"FH", modelCoef:1.02, year:2016, color:"white", price:21000, regNumber:"EEEE473", mileage:500, servicetime:3, cargoweight:120));
-            Vehicles.Add(new CargoVehicle(id:6, brand: "Volvo", model: "FMX", modelCoef: 1.01, year: 2014, color: "white", price: 26500, regNumber: "FFFF438", mileage: 250, servicetime: 7, cargoweight: 130));
+            Vehicles.Add(new CargoVehicle(id:5, brand:"Volvo", model:"FH", modelCoef:1.02, year:2016, color:"white", price:21000, regNumber:"EEEE473", mileage:1000001, servicetime:3, cargoweight:120));
+            Vehicles.Add(new CargoVehicle(id:6, brand: "Volvo", model: "FMX", modelCoef: 1.01, year: 2014, color: "white", price: 26500, regNumber: "FFFF438", mileage: 29300, servicetime: 7, cargoweight: 130));
+            Vehicles.Add(new PassengerVehicle(id: 7, brand: "Toyota", model: "Corolla", modelCoef: 1.0, year: 1986, color: "red", price: 5000, regNumber: "GGGG761", mileage: 14500, servicetime: 30, lesseeRating: 100));
+            Vehicles.Add(new PassengerVehicle(id: 8, brand: "Toyota", model: "Corona", modelCoef: 1.2, year: 1986, color: "red", price: 5000, regNumber: "HHHH468", mileage: 20000, servicetime: 30, lesseeRating: 100));
+            Vehicles.Add(new PassengerVehicle(id: 9, brand: "Toyota", model: "Carina", modelCoef: 1.1, year: 1986, color: "red", price: 5000, regNumber: "HHHH468", mileage: 21000, servicetime: 30, lesseeRating: 100));
         }
 
         public void PrintVehiclesPriceCost()
@@ -35,7 +40,7 @@ namespace Fleet_Vehicles
                 
         public void PrintVehicles()
         {
-            string separator = new String('-', Console.WindowWidth); //string of repeating symbols, WindowWidth times
+            //string separator = new String('-', Console.WindowWidth); //string of repeating symbols, WindowWidth times
             foreach (var vehicle in Vehicles)
             {
                
@@ -69,16 +74,67 @@ namespace Fleet_Vehicles
 
         public void PrintSameBrand(string brandName)
         {
-            string separator = new String('-', Console.WindowWidth); //string of repeating symbols, WindowWidth times
-            var vehiclesOfSameBrand = Vehicles.Where(x => { return x.Brand == brandName; });
+            var vehiclesSelected = Vehicles.Where(x => { return x.Brand == brandName; });
             
             Console.WriteLine($"Vehicles of \"{brandName}\" brand:");
             Console.WriteLine(separator);
-            foreach (var vehicle in vehiclesOfSameBrand) {
+            foreach (var vehicle in vehiclesSelected) {
                 if (vehicle is CargoVehicle) { (vehicle as CargoVehicle).PrintInfo(); }
                 if (vehicle is PassengerVehicle) { (vehicle as PassengerVehicle).PrintInfo(); }
                 Console.WriteLine(separator);
             }
         }
+
+        public void PrintSameBrandColorSorted(string brandName, string color)
+        {
+            var vehiclesSelected= from vehicle in Vehicles
+                                      where vehicle.Brand == brandName && vehicle.Color == color
+                                      orderby vehicle.ModelCoef descending
+                                      select vehicle;
+
+            Console.WriteLine($"Vehicles of \"{brandName}\" brand, color {color}, sorted by ModelCoef:"); //let's suppose ModelCoef is Comfort
+            Console.WriteLine(separator);
+            foreach (var vehicle in vehiclesSelected)
+            {
+                if (vehicle is CargoVehicle) { (vehicle as CargoVehicle).PrintInfo(); }
+                if (vehicle is PassengerVehicle) { (vehicle as PassengerVehicle).PrintInfo(); }
+                Console.WriteLine(separator);
+            }
+        }
+
+        public void PrintExceededTenure()
+        {
+
+            var vehiclesSelected = from vehicle in Vehicles
+                                   where (vehicle is PassengerVehicle && (vehicle.Mileage > 100000 || vehicle.ServiceTime > 5 )) || (vehicle is CargoVehicle && (vehicle.Mileage > 1000000 || vehicle.ServiceTime > 15))
+                                   select vehicle;
+
+            Console.WriteLine($"Vehicles of exceeded tenure:");
+            Console.WriteLine(separator);
+            foreach (var vehicle in vehiclesSelected)
+            {
+                if (vehicle is CargoVehicle) { (vehicle as CargoVehicle).PrintInfo(); }
+                if (vehicle is PassengerVehicle) { (vehicle as PassengerVehicle).PrintInfo(); }
+                Console.WriteLine(separator);
+            }
+        }
+
+        //public void PrintCloseToMaintenance()
+        //{
+
+        //    var vehiclesSelected = from vehicle in Vehicles
+        //                           where (vehicle is PassengerVehicle && (vehicle.Mileage > 100000 || vehicle.ServiceTime > 5)) || (vehicle is CargoVehicle && (vehicle.Mileage > 1000000 || vehicle.ServiceTime > 15))
+        //                           select vehicle;
+
+        //    Console.WriteLine($"Vehicles close to maintenancec:");
+        //    Console.WriteLine(separator);
+        //    foreach (var vehicle in vehiclesSelected)
+        //    {
+        //        if (vehicle is CargoVehicle) { (vehicle as CargoVehicle).PrintInfo(); }
+        //        if (vehicle is PassengerVehicle) { (vehicle as PassengerVehicle).PrintInfo(); }
+        //        Console.WriteLine(separator);
+        //    }
+        //}
+
     }
 }

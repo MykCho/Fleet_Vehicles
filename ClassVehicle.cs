@@ -30,7 +30,8 @@ namespace Fleet_Vehicles
             Price = price;
             RegNumber = regNumber;
             Mileage = mileage;
-            ServiceTime = servicetime;
+            ServiceTime = servicetime; //I consider service time is different from age, as car may stay idle in garage for 20 years
+            //just be sure for it not to exceed age to be realistic, however in my examples there may be inconsistencies, since it's not the main point
                     
         }
 

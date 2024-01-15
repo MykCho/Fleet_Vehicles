@@ -52,13 +52,20 @@ namespace Fleet_Vehicles
             }
 
             Pause();
-
+            Console.WriteLine(Fleet.separator);
             Console.WriteLine($"Total fleet value, considering vehicle's age: ${Fleet.GetFleetValue()}");
-
+            Console.WriteLine(Fleet.separator);
             Pause();
             
             Fleet.PrintSameBrand("Volvo");
+            Pause();
 
+            Fleet.PrintSameBrandColorSorted("Toyota", "red");
+
+            Pause();
+            Console.WriteLine(Fleet.separator);
+            Fleet.PrintExceededTenure();
+            Pause();
         }
     }
 }
