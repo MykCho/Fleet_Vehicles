@@ -6,7 +6,7 @@ namespace Fleet_Vehicles
     {
         static void Pause()
         {
-            Console.WriteLine("Press a key to continue");
+            Console.WriteLine("Press a key to continue...");
             Console.ReadKey();
         }
         
@@ -14,16 +14,19 @@ namespace Fleet_Vehicles
         {
             //Console.WriteLine(Fleet.Vehicles.ElementAt(0).Price); //reminder how to get individual element
             var Fleet = new Fleet(); //initializing our fleet with default constructor's values
-            
+
+            Console.WriteLine("--=[Initial cost/current cost]=--");
             Fleet.PrintVehiclesPriceCost();
             Pause();
-            
+
+            Console.WriteLine("--=[All vehicles, detailed info]=--");
             Fleet.PrintVehicles();
             Pause();
 
             //Here getting rental cost of some vehicles
             //since fleet elements are of class Vehicle, we need to check for child class before calling respective child class function
             //please suggest a better way
+            Console.WriteLine("--=[Printing info of elements 0 and 1]=--");
             if (Fleet.Vehicles.ElementAt(0) is CargoVehicle) {
                 Console.WriteLine($"Rental cost of element 0: ${(Fleet.Vehicles.ElementAt(0) as CargoVehicle).CalculateRentalCost(10, 5, 1, 2)}");
             }
@@ -34,6 +37,7 @@ namespace Fleet_Vehicles
             }
 
             //Getting rental cost for each element with some general parameters
+            Console.WriteLine("--=[Rental cost of each vehicle (example)]=--");
             foreach (Vehicle vehicle in Fleet.Vehicles)
             {
                 if (vehicle is CargoVehicle)
@@ -47,10 +51,13 @@ namespace Fleet_Vehicles
                 }
             }
 
-            //continue here
             Pause();
 
             Console.WriteLine($"Total fleet value, considering vehicle's age: ${Fleet.GetFleetValue()}");
+
+            Pause();
+            
+            Fleet.PrintSameBrand("Volvo");
 
         }
     }
