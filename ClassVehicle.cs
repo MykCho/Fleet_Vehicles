@@ -18,7 +18,7 @@ namespace Fleet_Vehicles
         public double Price {  get; set; } 
         public string RegNumber {  get; set; }
         public int Mileage { get; set; }
-        public short  ServiceTime { get; set; }
+        public short ServiceTime { get; set; }
 
         public Vehicle(uint id, string brand, string model, double modelCoef, int year, string color, double price, string regNumber, int mileage, short servicetime) {
             Id = id;

@@ -14,8 +14,11 @@ namespace Fleet_Vehicles
         {
             //since creating menu is not mentioned in the requirements, decided not to bother
             //each bit below shows a different functionality of the Fleet class
+
+
+            //var Fleet = new Fleet(); //initializing our fleet with default constructor's values
             
-            var Fleet = new Fleet(); //initializing our fleet with default constructor's values
+            var Fleet = new Fleet("FleetDump.txt"); 
 
             Console.WriteLine("--=[Initial cost/current cost]=--");
             Fleet.PrintVehiclesPriceCost();
@@ -58,7 +61,7 @@ namespace Fleet_Vehicles
             Console.WriteLine($"Total fleet value, considering vehicle's age: ${Fleet.GetFleetValue()}");
             Console.WriteLine(Fleet.separator);
             Pause();
-            
+
             Fleet.PrintSameBrand("Volvo");
             Pause();
 

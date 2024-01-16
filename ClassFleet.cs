@@ -28,6 +28,58 @@ namespace Fleet_Vehicles
             Vehicles.Add(new PassengerVehicle(id: 9, brand: "Toyota", model: "Carina", modelCoef: 1.1, year: 1986, color: "red", price: 5000, regNumber: "HHHH468", mileage: 21300, servicetime: 30, lesseeRating: 100));
         }
 
+        public Fleet(string fileName)
+        {
+            string vehicleType;
+            uint Id;
+            string Brand;
+            string Model;
+            double ModelCoef;
+            int Year;
+            string Color;
+            double Price;
+            string RegNumber;
+            int Mileage;
+            short ServiceTime;
+            double CargoWeight;
+            uint LesseeRating;
+            
+            if (!File.Exists(fileName)) { throw new FileNotFoundException($"Init file {fileName} is not found."); }
+
+            using (StreamReader sr = File.OpenText(fileName))
+            {
+                bool parseOutcome;
+                string line;
+                Vehicles = new List<Vehicle>();
+
+                while (sr.Peek() >= 0)
+                {
+                    vehicleType = sr.ReadLine();
+                    line = sr.ReadLine(); parseOutcome = uint.TryParse(line, out Id);
+                    Brand = sr.ReadLine();
+                    Model = sr.ReadLine();
+                    line = sr.ReadLine(); parseOutcome = double.TryParse(line, out ModelCoef);
+                    line = sr.ReadLine(); parseOutcome = int.TryParse(line, out Year);
+                    Color = sr.ReadLine();
+                    line = sr.ReadLine(); parseOutcome = double.TryParse(line, out Price);
+                    RegNumber = sr.ReadLine();
+                    line = sr.ReadLine(); parseOutcome = int.TryParse(line, out Mileage);
+                    line = sr.ReadLine(); parseOutcome = short.TryParse(line, out ServiceTime);
+                    if (vehicleType == "CargoVehicle") { 
+                        line = sr.ReadLine(); parseOutcome = double.TryParse(line, out CargoWeight);
+                        Vehicles.Add(new CargoVehicle(Id, Brand, Model, ModelCoef, Year, Color, Price, RegNumber, Mileage, ServiceTime, CargoWeight));
+                    }
+                    if (vehicleType == "PassengerVehicle") { 
+                        line = sr.ReadLine(); parseOutcome = uint.TryParse(line, out LesseeRating);
+                        Vehicles.Add(new PassengerVehicle(Id, Brand, Model, ModelCoef, Year, Color, Price, RegNumber, Mileage, ServiceTime, LesseeRating));
+                    }
+
+                }
+            }
+
+            
+        }
+
         public void PrintVehiclesPriceCost()
         {
             foreach (var vehicle in Vehicles)
@@ -134,6 +186,36 @@ namespace Fleet_Vehicles
                 if (vehicle is PassengerVehicle) { (vehicle as PassengerVehicle).PrintInfo(); }
                 Console.WriteLine(separator);
             }
+        }
+
+        public void DumpToFile()
+        {
+            string fileName = @"FleetDump.txt";
+            if (File.Exists(fileName)) { File.Delete(fileName); }
+
+            using (StreamWriter sw = File.CreateText(fileName))
+            {
+                foreach (var vehicle in Vehicles) { 
+                    if (vehicle is CargoVehicle) { sw.WriteLine("CargoVehicle"); }
+                    if (vehicle is PassengerVehicle) { sw.WriteLine("PassengerVehicle"); }
+                    sw.WriteLine(vehicle.Id);
+                    sw.WriteLine(vehicle.Brand);
+                    sw.WriteLine(vehicle.Model);
+                    sw.WriteLine(vehicle.ModelCoef);
+                    sw.WriteLine(vehicle.Year);
+                    sw.WriteLine(vehicle.Color);
+                    sw.WriteLine(vehicle.Price);
+                    sw.WriteLine(vehicle.RegNumber);
+                    sw.WriteLine(vehicle.Mileage);
+                    sw.WriteLine(vehicle.ServiceTime);
+                    if (vehicle is CargoVehicle) { sw.WriteLine($"{(vehicle as CargoVehicle).CargoWeight}"); }
+                    if (vehicle is PassengerVehicle) { sw.WriteLine($"{(vehicle as PassengerVehicle).LesseeRating}"); }
+
+
+                }
+            }
+
+
         }
 
     }
