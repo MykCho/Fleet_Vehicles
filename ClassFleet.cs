@@ -190,7 +190,7 @@ namespace Fleet_Vehicles
 
         public void DumpToFile()
         {
-            string fileName = @"FleetDump.txt";
+            string fileName = @"..\\..\\..\\FleetDump.txt";
             if (File.Exists(fileName)) { File.Delete(fileName); }
 
             using (StreamWriter sw = File.CreateText(fileName))

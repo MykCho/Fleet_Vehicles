@@ -17,8 +17,9 @@ namespace Fleet_Vehicles
 
 
             //var Fleet = new Fleet(); //initializing our fleet with default constructor's values
-            
-            var Fleet = new Fleet("FleetDump.txt"); 
+
+
+            var Fleet = new Fleet(@"..\\..\\..\\FleetDump.txt");
 
             Console.WriteLine("--=[Initial cost/current cost]=--");
             Fleet.PrintVehiclesPriceCost();
@@ -32,7 +33,8 @@ namespace Fleet_Vehicles
             //since fleet elements are of class Vehicle, we need to check for child class before calling respective child class function
             //please suggest a better way
             Console.WriteLine("--=[Printing info of elements 0 and 1]=--");
-            if (Fleet.Vehicles.ElementAt(0) is CargoVehicle) {
+            if (Fleet.Vehicles.ElementAt(0) is CargoVehicle)
+            {
                 Console.WriteLine($"Rental cost of element 0: ${(Fleet.Vehicles.ElementAt(0) as CargoVehicle).CalculateRentalCost(10, 5, 1, 2)}");
             }
 
@@ -73,6 +75,8 @@ namespace Fleet_Vehicles
             Pause();
 
             Fleet.PrintCloseToMaintenance();
+
+            //Fleet.DumpToFile(); used for dumping to text file
 
 
         }
