@@ -24,8 +24,8 @@ namespace Fleet_Vehicles
             Vehicles.Add(new CargoVehicle(id:5, brand:"Volvo", model:"FH", modelCoef:1.02, year:2016, color:"white", price:21000, regNumber:"EEEE473", mileage:1000001, servicetime:3, cargoweight:120));
             Vehicles.Add(new CargoVehicle(id:6, brand: "Volvo", model: "FMX", modelCoef: 1.01, year: 2014, color: "white", price: 26500, regNumber: "FFFF438", mileage: 29300, servicetime: 7, cargoweight: 130));
             Vehicles.Add(new PassengerVehicle(id: 7, brand: "Toyota", model: "Corolla", modelCoef: 1.0, year: 1986, color: "red", price: 5000, regNumber: "GGGG761", mileage: 14500, servicetime: 30, lesseeRating: 100));
-            Vehicles.Add(new PassengerVehicle(id: 8, brand: "Toyota", model: "Corona", modelCoef: 1.2, year: 1986, color: "red", price: 5000, regNumber: "HHHH468", mileage: 20000, servicetime: 30, lesseeRating: 100));
-            Vehicles.Add(new PassengerVehicle(id: 9, brand: "Toyota", model: "Carina", modelCoef: 1.1, year: 1986, color: "red", price: 5000, regNumber: "HHHH468", mileage: 21000, servicetime: 30, lesseeRating: 100));
+            Vehicles.Add(new PassengerVehicle(id: 8, brand: "Toyota", model: "Corona", modelCoef: 1.2, year: 1986, color: "red", price: 5000, regNumber: "HHHH468", mileage: 5100, servicetime: 30, lesseeRating: 100));
+            Vehicles.Add(new PassengerVehicle(id: 9, brand: "Toyota", model: "Carina", modelCoef: 1.1, year: 1986, color: "red", price: 5000, regNumber: "HHHH468", mileage: 21300, servicetime: 30, lesseeRating: 100));
         }
 
         public void PrintVehiclesPriceCost()
@@ -119,22 +119,22 @@ namespace Fleet_Vehicles
             }
         }
 
-        //public void PrintCloseToMaintenance()
-        //{
+        public void PrintCloseToMaintenance()
+        {
 
-        //    var vehiclesSelected = from vehicle in Vehicles
-        //                           where (vehicle is PassengerVehicle && (vehicle.Mileage > 100000 || vehicle.ServiceTime > 5)) || (vehicle is CargoVehicle && (vehicle.Mileage > 1000000 || vehicle.ServiceTime > 15))
-        //                           select vehicle;
+            var vehiclesSelected = from vehicle in Vehicles
+                                   where (vehicle is PassengerVehicle && (vehicle as PassengerVehicle).GetKmToNextMaintenance() < 1000) || (vehicle is CargoVehicle && (vehicle as CargoVehicle).GetKmToNextMaintenance() < 15000)
+                                   select vehicle;
 
-        //    Console.WriteLine($"Vehicles close to maintenancec:");
-        //    Console.WriteLine(separator);
-        //    foreach (var vehicle in vehiclesSelected)
-        //    {
-        //        if (vehicle is CargoVehicle) { (vehicle as CargoVehicle).PrintInfo(); }
-        //        if (vehicle is PassengerVehicle) { (vehicle as PassengerVehicle).PrintInfo(); }
-        //        Console.WriteLine(separator);
-        //    }
-        //}
+            Console.WriteLine($"--=[Vehicles close to maintenance]=--");
+            Console.WriteLine(separator);
+            foreach (var vehicle in vehiclesSelected)
+            {
+                if (vehicle is CargoVehicle) { (vehicle as CargoVehicle).PrintInfo(); }
+                if (vehicle is PassengerVehicle) { (vehicle as PassengerVehicle).PrintInfo(); }
+                Console.WriteLine(separator);
+            }
+        }
 
     }
 }

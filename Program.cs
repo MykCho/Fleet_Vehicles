@@ -66,6 +66,10 @@ namespace Fleet_Vehicles
             Console.WriteLine(Fleet.separator);
             Fleet.PrintExceededTenure();
             Pause();
+
+            Fleet.PrintCloseToMaintenance();
+
+
         }
     }
 }

@@ -8,6 +8,7 @@ namespace Fleet_Vehicles
 {
     public class PassengerVehicle : Vehicle
     {
+        private static uint MaintenanceDue = 5000;
         public uint LesseeRating {  get; set; }
 
         public PassengerVehicle (uint id, string brand, string model, double modelCoef, int year, string color, double price, string regNumber, int mileage, short servicetime, uint lesseeRating)
@@ -36,6 +37,16 @@ namespace Fleet_Vehicles
         {
             return ModelCoef * Math.Max(ratePerHour * hours, ratePerKilometer * kilometers)*Math.Sqrt(LesseeRating);
             //and similarly in here, using sqrt just because I don't know how should it influence the cost
+        }
+
+        public long GetKmToNextMaintenance()
+        {
+            long MileageTemp = Mileage;
+            if (MaintenanceDue >= MileageTemp) { return (MaintenanceDue - MileageTemp); }
+            else {
+                do { MileageTemp = MileageTemp - MaintenanceDue; } while (MileageTemp > 0);
+                return Math.Abs(MileageTemp);
+            }
         }
     }
 }
