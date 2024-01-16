@@ -12,7 +12,9 @@ namespace Fleet_Vehicles
         
         static void Main()
         {
-            //Console.WriteLine(Fleet.Vehicles.ElementAt(0).Price); //reminder how to get individual element
+            //since creating menu is not mentioned in the requirements, decided not to bother
+            //each bit below shows a different functionality of the Fleet class
+            
             var Fleet = new Fleet(); //initializing our fleet with default constructor's values
 
             Console.WriteLine("--=[Initial cost/current cost]=--");
